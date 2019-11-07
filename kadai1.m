@@ -13,7 +13,8 @@ pause; % ˆê’â~
 
 IMG = imresize(ORG,0.5); % ‰æ‘œ‚Ìk¬
 IMG2 = imresize(IMG,2,'box'); % ‰æ‘œ‚ÌŠg‘å
-imagesc(IMG2); axis image; % ‰æ‘œ‚Ì•\¦
+imagesc(IMG2);
+axis image; % ‰æ‘œ‚Ì•\¦
 pause; % ˆê’â~
 
 IMG = imresize(IMG,0.5); % ‰æ‘œ‚Ìk¬
