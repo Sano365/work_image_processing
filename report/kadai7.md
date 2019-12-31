@@ -1,5 +1,5 @@
-# kadai6 画像の二値化
-- 画像二値化せよ．
+# kadai7 ダイナミックレンジの拡大
+- 画素のダイナミックレンジを０から２５５にせよ
 - 原画像を図1に示す。
   
 <div align="center">
@@ -14,78 +14,24 @@ imagesc(ORG); colormap(gray); colorbar; % 画像の表示
 pause; % 一時停止
 ```
 
-## 輝度値64による二値化
- - 以下のコードを実行した。
+## ダイナミックレンジの拡大
 ```m
-IMG = ORG>64; % 輝度値64による二値化
-imagesc(IMG); colormap(gray); colorbar; % 画像の表示
+imhist(ORG); % 濃度ヒストグラムを生成、表示
 pause;
-```
-
-実行結果を図2に示す。
-
-<div align="center">
-<img src="img/kadai6-1.png" width="400"><br>
-図2,原画像の輝度値64による画像二値化
-</div>
-
-
-## 輝度値96による二値化
- - 以下のコードを実行した。
-```m
-IMG = ORG>96; % 輝度値96による二値化
-imagesc(IMG); colormap(gray); colorbar; % 画像の表示
+ORG = double(ORG);
+mn = min(ORG(:)); % 濃度値の最小値を算出
+mx = max(ORG(:)); % 濃度値の最大値を算出
+ORG = (ORG-mn)/(mx-mn)*255;
+imagesc(ORG); colormap(gray); colorbar; % 画像の表示
 pause;
+ORG = uint8(ORG); % この行について考察せよ
+imhist(ORG); % 濃度ヒストグラムを生成、表示
 ```
 
-実行結果を図3に示す。
+- ``uint8(ORG)``ここで、濃度値を符号なし8ビットに変換している。0-255となるので、ダイナミックレンジの変換に成功しているといえる。
 
 <div align="center">
-<img src="img/kadai6-2.png" width="400"><br>
-図3,原画像の輝度値96による画像二値化
+<img src="img/kadai7-1.png" width="400"><br>
+図2,ダイナミックレンジの拡大
 </div>
 
-## 輝度値128による二値化
- - 以下のコードを実行した。
-```m
-IMG = ORG>128; % 輝度値128による二値化
-imagesc(IMG); colormap(gray); colorbar; % 画像の表示
-pause;
-```
-
-実行結果を図4に示す。
-
-<div align="center">
-<img src="img/kadai6-3.png" width="400"><br>
-図4,原画像の輝度値128による画像二値化
-</div>
-
-## 輝度値160による二値化
- - 以下のコードを実行した。
-```m
-IMG = ORG>160; % 輝度値160による二値化
-imagesc(IMG); colormap(gray); colorbar; % 画像の表示
-pause;
-```
-
-実行結果を図5に示す。
-
-<div align="center">
-<img src="img/kadai6-4.png" width="400"><br>
-図5,原画像の輝度値160による画像二値化
-</div>
-
-## ディザ法による二値化
- - 以下のコードを実行した。
-```m
-IMG = dither(ORG); % ディザ法による二値化
-imagesc(IMG); colormap(gray); colorbar; % 画像の表示
-
-```
-
-実行結果を図6に示す。
-
-<div align="center">
-<img src="img/kadai6-5.png" width="400"><br>
-図6,原画像のディザ法による画像二値化
-</div>
